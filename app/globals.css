@@ -1,0 +1,382 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.75rem;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 84% 4.9%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 94.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom animations for voice visualization */
+@keyframes pulse-red {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse-red {
+  animation: pulse-red 1s ease-in-out infinite;
+}
+
+/* Custom switch styling for better dark mode visibility */
+.dark [data-state="checked"] {
+  background-color: rgb(37 99 235) !important; /* blue-600 */
+}
+
+.dark [data-state="unchecked"] {
+  background-color: rgb(75 85 99) !important; /* gray-600 */
+}
+
+/* Voice mode switch specific styling */
+[data-state="checked"] {
+  background-color: rgb(37 99 235); /* blue-600 */
+}
+
+[data-state="unchecked"] {
+  background-color: rgb(209 213 219); /* gray-300 */
+}
+
+/* Enhanced dark mode backgrounds */
+.dark {
+  --background: 17 24 39; /* gray-900 */
+  --card: 17 24 39; /* gray-900 */
+  --popover: 17 24 39; /* gray-900 */
+}
+
+/* Better contrast for dark mode text */
+.dark .text-muted-foreground {
+  color: rgb(156 163 175); /* gray-400 */
+}
+
+/* Custom Switch Animations and Styling */
+.theme-switch {
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-switch::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.5s;
+}
+
+.theme-switch:hover::before {
+  left: 100%;
+}
+
+.voice-switch {
+  position: relative;
+  overflow: hidden;
+}
+
+.voice-switch::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.6s;
+}
+
+.voice-switch:hover::before {
+  left: 100%;
+}
+
+/* Enhanced switch thumb animations */
+[data-state="checked"] [data-part="thumb"] {
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-state="unchecked"] [data-part="thumb"] {
+  transform: translateX(0%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Glowing effect for active switches */
+.theme-switch[data-state="checked"] {
+  box-shadow: 0 0 20px rgba(147, 51, 234, 0.5);
+  animation: glow-purple 2s ease-in-out infinite alternate;
+}
+
+.theme-switch[data-state="unchecked"] {
+  box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+  animation: glow-orange 2s ease-in-out infinite alternate;
+}
+
+.voice-switch[data-state="checked"] {
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
+  animation: glow-green 2s ease-in-out infinite alternate;
+}
+
+.voice-switch[data-state="unchecked"] {
+  box-shadow: 0 0 15px rgba(107, 114, 128, 0.3);
+}
+
+/* Keyframe animations for glowing effects */
+@keyframes glow-purple {
+  from {
+    box-shadow: 0 0 20px rgba(147, 51, 234, 0.5);
+  }
+  to {
+    box-shadow: 0 0 30px rgba(147, 51, 234, 0.8);
+  }
+}
+
+@keyframes glow-orange {
+  from {
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+  }
+  to {
+    box-shadow: 0 0 30px rgba(251, 191, 36, 0.8);
+  }
+}
+
+@keyframes glow-green {
+  from {
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
+  }
+  to {
+    box-shadow: 0 0 30px rgba(34, 197, 94, 0.8);
+  }
+}
+
+/* Bounce animation for switch activation */
+@keyframes switch-bounce {
+  0%,
+  20%,
+  60%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  40% {
+    transform: translateY(-10px) scale(1.1);
+  }
+  80% {
+    transform: translateY(-5px) scale(1.05);
+  }
+}
+
+.theme-switch:active,
+.voice-switch:active {
+  animation: switch-bounce 0.6s ease-in-out;
+}
+
+/* Ripple effect on click */
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+.theme-switch::after,
+.voice-switch::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%);
+  transform-origin: 50% 50%;
+}
+
+.theme-switch:focus::after,
+.voice-switch:focus::after {
+  animation: ripple 0.6s ease-out;
+}
+
+/* Smooth color transitions */
+.theme-switch,
+.voice-switch {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Icon rotation animations */
+.hover\:rotate-180:hover {
+  transform: rotate(180deg);
+}
+
+.hover\:rotate-12:hover {
+  transform: rotate(12deg);
+}
+
+/* Scale animations for icons */
+.hover\:scale-125:hover {
+  transform: scale(1.25);
+}
+
+.hover\:scale-110:hover {
+  transform: scale(1.1);
+}
+
+/* Container hover effects */
+.hover\:scale-105:hover {
+  transform: scale(1.05);
+}
+
+/* Modern Corner Logo Styling */
+.corner-logo-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.corner-logo-container::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(from 0deg, transparent, rgba(59, 130, 246, 0.3), transparent);
+  animation: rotate-gradient 3s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.corner-logo-container:hover::before {
+  opacity: 1;
+}
+
+@keyframes rotate-gradient {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Enhanced glow effects for logos */
+.logo-glow {
+  filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.3));
+  transition: filter 0.3s ease;
+}
+
+.logo-glow:hover {
+  filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.6));
+}
+
+/* Floating animation for main logo */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.floating-logo {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Modern glass effect */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+.dark .glass-effect {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Shimmer effect for logos */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer-effect {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
